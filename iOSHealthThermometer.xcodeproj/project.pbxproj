@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2267074A15FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */; };
+		2267074D15FE481A00105A61 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2267074C15FE481A00105A61 /* CameraView.m */; };
+		2267074F15FE492A00105A61 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267074E15FE492A00105A61 /* AVFoundation.framework */; };
+		2267075315FE495E00105A61 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267075215FE495E00105A61 /* CoreMedia.framework */; };
+		2267075515FE497600105A61 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267075415FE497600105A61 /* CoreVideo.framework */; };
+		2267075815FE4AB400105A61 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2267075715FE4AB400105A61 /* UIImage+Resize.m */; };
 		22A8518B153E8F3E000B4042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518A153E8F3E000B4042 /* UIKit.framework */; };
 		22A8518D153E8F3E000B4042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518C153E8F3E000B4042 /* Foundation.framework */; };
 		22A8518F153E8F3E000B4042 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518E153E8F3E000B4042 /* CoreGraphics.framework */; };
@@ -20,6 +25,14 @@
 
 /* Begin PBXFileReference section */
 		2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BLE112_eval_kit_web_pic.png; sourceTree = "<group>"; };
+		2267074B15FE481A00105A61 /* CameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
+		2267074C15FE481A00105A61 /* CameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraView.m; sourceTree = "<group>"; };
+		2267074E15FE492A00105A61 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2267075015FE494500105A61 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2267075215FE495E00105A61 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		2267075415FE497600105A61 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		2267075615FE4AB400105A61 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		2267075715FE4AB400105A61 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		22A85186153E8F3E000B4042 /* iOSHealthThermometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSHealthThermometer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A8518A153E8F3E000B4042 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22A8518C153E8F3E000B4042 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -39,6 +52,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2267075515FE497600105A61 /* CoreVideo.framework in Frameworks */,
+				2267075315FE495E00105A61 /* CoreMedia.framework in Frameworks */,
+				2267074F15FE492A00105A61 /* AVFoundation.framework in Frameworks */,
 				22A851A2153E8F4F000B4042 /* CoreBluetooth.framework in Frameworks */,
 				22A8518B153E8F3E000B4042 /* UIKit.framework in Frameworks */,
 				22A8518D153E8F3E000B4042 /* Foundation.framework in Frameworks */,
@@ -52,6 +68,10 @@
 		22A8517B153E8F3E000B4042 = {
 			isa = PBXGroup;
 			children = (
+				2267075415FE497600105A61 /* CoreVideo.framework */,
+				2267075215FE495E00105A61 /* CoreMedia.framework */,
+				2267075015FE494500105A61 /* QuartzCore.framework */,
+				2267074E15FE492A00105A61 /* AVFoundation.framework */,
 				22A85190153E8F3E000B4042 /* iOSHealthThermometer */,
 				22A85189153E8F3E000B4042 /* Frameworks */,
 				22A85187153E8F3E000B4042 /* Products */,
@@ -82,6 +102,10 @@
 			children = (
 				22A85199153E8F3E000B4042 /* AppDelegate.h */,
 				22A8519A153E8F3E000B4042 /* AppDelegate.m */,
+				2267074B15FE481A00105A61 /* CameraView.h */,
+				2267074C15FE481A00105A61 /* CameraView.m */,
+				2267075615FE4AB400105A61 /* UIImage+Resize.h */,
+				2267075715FE4AB400105A61 /* UIImage+Resize.m */,
 				2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */,
 				22A851AB153E964A000B4042 /* ThermometerViewController.h */,
 				22A851AC153E964A000B4042 /* ThermometerViewController.m */,
@@ -167,6 +191,8 @@
 				22A85197153E8F3E000B4042 /* main.m in Sources */,
 				22A8519B153E8F3E000B4042 /* AppDelegate.m in Sources */,
 				22A851AE153E964B000B4042 /* ThermometerViewController.m in Sources */,
+				2267074D15FE481A00105A61 /* CameraView.m in Sources */,
+				2267075815FE4AB400105A61 /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

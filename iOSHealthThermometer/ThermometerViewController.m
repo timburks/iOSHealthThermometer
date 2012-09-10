@@ -9,6 +9,13 @@
 #import "ThermometerViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
+
+#define CAMERA_ENABLED
+
+#ifdef CAMERA_ENABLED
+#import "CameraView.h"
+#endif
+
 @interface ThermometerViewController () <CBCentralManagerDelegate, CBPeripheralDelegate>
 @property (nonatomic, strong) CBCentralManager *manager;
 @property (nonatomic, strong) CBPeripheral *peripheral;
@@ -21,6 +28,9 @@
 @property (nonatomic, strong) UILabel *manufacturerLabel;
 
 @property (nonatomic, assign) BOOL automaticallyReconnect;
+#ifdef CAMERA_ENABLED
+@property (nonatomic, strong) CameraView *cameraView;
+#endif
 @end
 
 @implementation ThermometerViewController
@@ -37,7 +47,7 @@
 - (void) prepareLabel:(UILabel *) label {
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth+UIViewAutoresizingFlexibleHeight;
     label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
+    label.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.8];
     label.textColor = [UIColor whiteColor];
     [self.view addSubview:label];
 }
@@ -56,8 +66,15 @@
     imageFrame.origin.y = 0.5*(self.view.bounds.size.height - imageFrame.size.height);
     imageView.frame = imageFrame;
     
+
+#ifdef CAMERA_ENABLED
+    self.cameraView = [[CameraView alloc] initWithFrame:self.view.bounds];
+    self.cameraView.autoresizingMask = UIViewAutoresizingFlexibleWidth + UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:self.cameraView];
+#endif
+    
     CGRect labelFrame = self.view.bounds;
-    labelFrame.size.height = self.view.bounds.size.height * 0.2;
+    labelFrame.size.height = self.view.bounds.size.height * 0.15;
     self.temperatureLabel = [[UILabel alloc] initWithFrame:labelFrame];
     self.temperatureLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.height * 0.1];
     self.temperatureLabel.text = @"--";
@@ -79,6 +96,12 @@
     self.manufacturerLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.height * 0.05];
     self.manufacturerLabel.text = @"Disconnected";
     [self prepareLabel:self.manufacturerLabel];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+#ifdef CAMERA_ENABLED
+    [self.cameraView startUpdating];
+#endif
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -117,8 +140,8 @@
 {
     NSLog(@"startScan");
     self.automaticallyReconnect = YES;
-    NSArray *services = nil; // [NSArray arrayWithObject:[CBUUID UUIDWithString:@"1809"]];
-    [self.manager scanForPeripheralsWithServices:services options:nil];
+    NSArray *services = [NSArray arrayWithObject:[CBUUID UUIDWithString:@"F5E33626-FBD9-5263-98AA-1E0D2FCE4C65"]]; // nil; // [NSArray arrayWithObject:[CBUUID UUIDWithString:@"1809"]];
+    [self.manager scanForPeripheralsWithServices:nil options:nil];
 }
 
 // Request CBCentralManager to stop scanning for peripherals
@@ -130,7 +153,17 @@
 - (void) disconnect
 {
     self.automaticallyReconnect = NO;
-    [self.manager cancelPeripheralConnection:self.peripheral];
+    if (self.peripheral) {
+        [self.manager retrieveConnectedPeripherals];
+    }
+}
+
+- (void) centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
+{
+    for (CBPeripheral *peripheral in peripherals) {
+        NSLog(@"canceling connection to %@", peripheral);
+        [self.manager cancelPeripheralConnection:peripheral];
+    }
 }
 
 
@@ -249,6 +282,8 @@ didFailToConnectPeripheral:(CBPeripheral *)peripheral
  */
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
+    NSLog(@"peripheral:didDiscoverCharacteristicsForService:%@", service.UUID.data);
+
     if (error)
     {
         NSLog(@"Discovered characteristics for %@ with error: %@",
@@ -301,9 +336,6 @@ didFailToConnectPeripheral:(CBPeripheral *)peripheral
                 [self.peripheral readValueForCharacteristic:characteristic];
                 
             }
-            
-            /* Write value to measurement interval characteristic */
-            
         }
     }
     
@@ -316,8 +348,8 @@ didFailToConnectPeripheral:(CBPeripheral *)peripheral
             /* Read device name */
             if([characteristic.UUID isEqual:[CBUUID UUIDWithString:CBUUIDDeviceNameString]])
             {
-                [self.peripheral readValueForCharacteristic:characteristic];
-                NSLog(@"Found a Device Name Characteristic - Read device name");
+              //  [self.peripheral readValueForCharacteristic:characteristic];
+              //  NSLog(@"Found a Device Name Characteristic - Read device name");
             }
         }
     }
