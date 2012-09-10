@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UILabel *temperatureLabel;
 @property (nonatomic, strong) UILabel *rssiLabel;
 @property (nonatomic, strong) UILabel *manufacturerLabel;
+
+@property (nonatomic, assign) BOOL automaticallyReconnect;
 @end
 
 @implementation ThermometerViewController
@@ -36,35 +38,45 @@
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth+UIViewAutoresizingFlexibleHeight;
     label.textAlignment = UITextAlignmentCenter;
     label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor redColor];
+    label.textColor = [UIColor whiteColor];
     [self.view addSubview:label];
 }
 
 - (void)loadView
 {
     [super loadView];
-    self.temperatureLabel = [[UILabel alloc]
-                             initWithFrame:CGRectInset(self.view.bounds,
-                                                       0.2*self.view.bounds.size.width,
-                                                       0.45*self.view.bounds.size.height)];
-    self.temperatureLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.width * 0.10];
-    self.temperatureLabel.text = @"";
+    
+    self.view.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
+    
+    UIImageView *imageView = [[UIImageView alloc]
+                              initWithImage:[UIImage imageNamed:@"BLE112_eval_kit_web_pic.png"]];
+    [self.view addSubview:imageView];
+    CGRect imageFrame = imageView.frame;
+    imageFrame.origin.x = 0.5*(self.view.bounds.size.width - imageFrame.size.width);
+    imageFrame.origin.y = 0.5*(self.view.bounds.size.height - imageFrame.size.height);
+    imageView.frame = imageFrame;
+    
+    CGRect labelFrame = self.view.bounds;
+    labelFrame.size.height = self.view.bounds.size.height * 0.2;
+    self.temperatureLabel = [[UILabel alloc] initWithFrame:labelFrame];
+    self.temperatureLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.height * 0.1];
+    self.temperatureLabel.text = @"--";
     [self prepareLabel:self.temperatureLabel];
     
     self.rssiLabel = [[UILabel alloc]
                       initWithFrame:CGRectOffset(self.temperatureLabel.frame,
                                                  0,
                                                  self.temperatureLabel.frame.size.height)];
-    self.rssiLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.width * 0.05];
-    self.rssiLabel.text = @"";
+    self.rssiLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.height * 0.05];
+    self.rssiLabel.text = @"--";
     [self prepareLabel:self.rssiLabel];
     
     
-    self.manufacturerLabel = [[UILabel alloc]
-                              initWithFrame:CGRectOffset(self.rssiLabel.frame,
-                                                         0,
-                                                         self.rssiLabel.frame.size.height)];
-    self.manufacturerLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.width * 0.05];
+    labelFrame = self.view.bounds;
+    labelFrame.size.height = self.view.bounds.size.height * 0.1;
+    labelFrame.origin.y = self.view.bounds.size.height - labelFrame.size.height;
+    self.manufacturerLabel = [[UILabel alloc] initWithFrame:labelFrame];
+    self.manufacturerLabel.font = [UIFont boldSystemFontOfSize:self.view.bounds.size.height * 0.05];
     self.manufacturerLabel.text = @"Disconnected";
     [self prepareLabel:self.manufacturerLabel];
 }
@@ -103,6 +115,8 @@
 // Request CBCentralManager to scan for peripherals
 - (void) startScan
 {
+    NSLog(@"startScan");
+    self.automaticallyReconnect = YES;
     NSArray *services = nil; // [NSArray arrayWithObject:[CBUUID UUIDWithString:@"1809"]];
     [self.manager scanForPeripheralsWithServices:services options:nil];
 }
@@ -113,6 +127,13 @@
     [self.manager stopScan];
 }
 
+- (void) disconnect
+{
+    self.automaticallyReconnect = NO;
+    [self.manager cancelPeripheralConnection:self.peripheral];
+}
+
+
 #pragma mark - CBCentralManager delegate methods
 
 // Invoked when the central manager's state is updated.
@@ -121,19 +142,34 @@
     [self isLECapableHardware];
 }
 
+
+- (void) connectToPeripheral:(CBPeripheral *) peripheral {
+    [self stopScan];
+    self.peripheral = peripheral;
+    [self.peripheral setDelegate:self];
+    NSLog(@"connecting...");
+    [self.manager connectPeripheral:peripheral
+                            options:[NSDictionary dictionaryWithObject:
+                                     [NSNumber numberWithBool:YES]
+                                                                forKey:
+                                     CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
+}
+
+
 // Invoked when the central discovers peripheral while scanning.
 - (void) centralManager:(CBCentralManager *)central
-  didDiscoverPeripheral:(CBPeripheral *)aPeripheral
+  didDiscoverPeripheral:(CBPeripheral *)peripheral
       advertisementData:(NSDictionary *)advertisementData
                    RSSI:(NSNumber *)RSSI
 {
     NSLog(@"RSSI %@", RSSI);
     NSMutableArray *peripherals = [self mutableArrayValueForKey:@"thermometers"];
-    if(![self.thermometers containsObject:aPeripheral])
-        [peripherals addObject:aPeripheral];
+    if(![self.thermometers containsObject:peripheral])
+        [peripherals addObject:peripheral];
     
+    [self connectToPeripheral:peripheral];
     // Retrieve already known devices
-    [self.manager retrievePeripherals:[NSArray arrayWithObject:(id)aPeripheral.UUID]];
+  //  [self.manager retrievePeripherals:[NSArray arrayWithObject:(id)peripheral.UUID]];
 }
 
 // Invoked when the central manager retrieves the list of known peripherals.
@@ -141,50 +177,41 @@
 - (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
 {
     NSLog(@"Retrieved peripheral: %u - %@", [peripherals count], peripherals);
-    [self stopScan];
-    // If there are any known devices, automatically connect to it.
-    if([peripherals count] >= 1) {
-        NSLog(@"connecting...");
-        self.peripheral = [peripherals objectAtIndex:0];
-        [self.manager connectPeripheral:self.peripheral
-                                options:[NSDictionary dictionaryWithObject:
-                                         [NSNumber numberWithBool:YES]
-                                                                    forKey:
-                                         CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
-    }
 }
 
 // Invoked when a connection is succesfully created with the peripheral.
 // Discover available services on the peripheral
-- (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)aPeripheral
+- (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     NSLog(@"connected");
-    [aPeripheral setDelegate:self];
-    [aPeripheral discoverServices:nil];
+    [peripheral discoverServices:nil];
 }
 
 // Invoked when an existing connection with the peripheral is torn down.
 // Reset local variables
 - (void) centralManager:(CBCentralManager *)central
-didDisconnectPeripheral:(CBPeripheral *)aPeripheral
+didDisconnectPeripheral:(CBPeripheral *)peripheral
                   error:(NSError *)error
 {
+    NSLog(@"centralManager:%@ didDisconnectPeripheral:%@ error:%@", central, peripheral, error);
     if (self.peripheral) {
         [self.peripheral setDelegate:nil];
         self.peripheral = nil;
     }
-    self.temperatureLabel.text = @"";
-    self.rssiLabel.text = @"";
+    self.temperatureLabel.text = @"--";
+    self.rssiLabel.text = @"--";
     self.manufacturerLabel.text = @"Disconnected";
-    [self startScan];
+    if (self.automaticallyReconnect) {
+        [self startScan];
+    }
 }
 
 // Invoked when the central manager fails to create a connection with the peripheral.
 - (void) centralManager:(CBCentralManager *)central
-didFailToConnectPeripheral:(CBPeripheral *)aPeripheral
+didFailToConnectPeripheral:(CBPeripheral *)peripheral
                   error:(NSError *)error
 {
-    NSLog(@"Fail to connect to peripheral: %@ with error = %@", aPeripheral, [error localizedDescription]);
+    NSLog(@"Fail to connect to peripheral: %@ with error = %@", peripheral, [error localizedDescription]);
     if (self.peripheral) {
         [self.peripheral setDelegate:nil];
         self.peripheral = nil;
@@ -195,24 +222,24 @@ didFailToConnectPeripheral:(CBPeripheral *)aPeripheral
 
 // Invoked upon completion of a -[discoverServices:] request.
 // Discover available characteristics on interested services
-- (void) peripheral:(CBPeripheral *)aPeripheral didDiscoverServices:(NSError *)error
+- (void) peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-    for (CBService *aService in aPeripheral.services) {
+    for (CBService *aService in peripheral.services) {
         NSLog(@"Service found with UUID: %@", aService.UUID);
         
         /* Thermometer Service */
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"1809"]]) {
-            [aPeripheral discoverCharacteristics:nil forService:aService];
+            [peripheral discoverCharacteristics:nil forService:aService];
         }
         
         /* Device Information Service */
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180A"]]) {
-            [aPeripheral discoverCharacteristics:nil forService:aService];
+            [peripheral discoverCharacteristics:nil forService:aService];
         }
         
         /* GAP (Generic Access Profile) for Device Name */
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:CBUUIDGenericAccessProfileString]]) {
-            [aPeripheral discoverCharacteristics:nil forService:aService];
+            [peripheral discoverCharacteristics:nil forService:aService];
         }
     }
 }

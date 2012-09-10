@@ -9,6 +9,10 @@
 #import "AppDelegate.h"
 #import "ThermometerViewController.h"
 
+@interface AppDelegate ()
+@property (nonatomic, strong) ThermometerViewController *thermometerViewController;
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,9 +20,19 @@
     NSLog(@"Launching");
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
-
-    self.window.rootViewController = [[ThermometerViewController alloc] init];
+    
+    self.window.rootViewController = self.thermometerViewController = [[ThermometerViewController alloc] init];
     return YES;
+}
+
+- (void) applicationWillResignActive:(UIApplication *)application
+{
+    [self.thermometerViewController disconnect];
+}
+
+- (void) applicationDidBecomeActive:(UIApplication *)application
+{
+    [self.thermometerViewController startScan];
 }
 
 @end

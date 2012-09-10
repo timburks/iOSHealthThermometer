@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2267074A15FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */; };
 		22A8518B153E8F3E000B4042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518A153E8F3E000B4042 /* UIKit.framework */; };
 		22A8518D153E8F3E000B4042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518C153E8F3E000B4042 /* Foundation.framework */; };
 		22A8518F153E8F3E000B4042 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518E153E8F3E000B4042 /* CoreGraphics.framework */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BLE112_eval_kit_web_pic.png; sourceTree = "<group>"; };
 		22A85186153E8F3E000B4042 /* iOSHealthThermometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSHealthThermometer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A8518A153E8F3E000B4042 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22A8518C153E8F3E000B4042 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -80,6 +82,7 @@
 			children = (
 				22A85199153E8F3E000B4042 /* AppDelegate.h */,
 				22A8519A153E8F3E000B4042 /* AppDelegate.m */,
+				2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */,
 				22A851AB153E964A000B4042 /* ThermometerViewController.h */,
 				22A851AC153E964A000B4042 /* ThermometerViewController.m */,
 				22A85191153E8F3E000B4042 /* Supporting Files */,
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A85195153E8F3E000B4042 /* InfoPlist.strings in Resources */,
+				2267074A15FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,4 +8,7 @@
 
 @interface ThermometerViewController : UIViewController
 
+- (void) disconnect;
+- (void) startScan;
+
 @end
