@@ -13,6 +13,11 @@
 		2267075315FE495E00105A61 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267075215FE495E00105A61 /* CoreMedia.framework */; };
 		2267075515FE497600105A61 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267075415FE497600105A61 /* CoreVideo.framework */; };
 		2267075815FE4AB400105A61 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2267075715FE4AB400105A61 /* UIImage+Resize.m */; };
+		2267076715FE987600105A61 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267076615FE987600105A61 /* Icon.png */; };
+		2267077315FE9A6000105A61 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267077215FE9A6000105A61 /* Icon-57.png */; };
+		2267077515FE9A6600105A61 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267077415FE9A6600105A61 /* Icon-114.png */; };
+		2267077715FE9A6E00105A61 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267077615FE9A6E00105A61 /* Icon-72.png */; };
+		2267077915FE9A7000105A61 /* Icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267077815FE9A7000105A61 /* Icon-144.png */; };
 		22A8518B153E8F3E000B4042 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518A153E8F3E000B4042 /* UIKit.framework */; };
 		22A8518D153E8F3E000B4042 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518C153E8F3E000B4042 /* Foundation.framework */; };
 		22A8518F153E8F3E000B4042 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A8518E153E8F3E000B4042 /* CoreGraphics.framework */; };
@@ -33,6 +38,11 @@
 		2267075415FE497600105A61 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		2267075615FE4AB400105A61 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		2267075715FE4AB400105A61 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		2267076615FE987600105A61 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		2267077215FE9A6000105A61 /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-57.png"; sourceTree = "<group>"; };
+		2267077415FE9A6600105A61 /* Icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-114.png"; sourceTree = "<group>"; };
+		2267077615FE9A6E00105A61 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		2267077815FE9A7000105A61 /* Icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-144.png"; sourceTree = "<group>"; };
 		22A85186153E8F3E000B4042 /* iOSHealthThermometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSHealthThermometer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A8518A153E8F3E000B4042 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22A8518C153E8F3E000B4042 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -68,6 +78,10 @@
 		22A8517B153E8F3E000B4042 = {
 			isa = PBXGroup;
 			children = (
+				2267077815FE9A7000105A61 /* Icon-144.png */,
+				2267077615FE9A6E00105A61 /* Icon-72.png */,
+				2267077415FE9A6600105A61 /* Icon-114.png */,
+				2267077215FE9A6000105A61 /* Icon-57.png */,
 				2267075415FE497600105A61 /* CoreVideo.framework */,
 				2267075215FE495E00105A61 /* CoreMedia.framework */,
 				2267075015FE494500105A61 /* QuartzCore.framework */,
@@ -117,6 +131,7 @@
 		22A85191153E8F3E000B4042 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2267076615FE987600105A61 /* Icon.png */,
 				22A85192153E8F3E000B4042 /* Info.plist */,
 				22A85193153E8F3E000B4042 /* InfoPlist.strings */,
 				22A85196153E8F3E000B4042 /* main.m */,
@@ -178,6 +193,11 @@
 			files = (
 				22A85195153E8F3E000B4042 /* InfoPlist.strings in Resources */,
 				2267074A15FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png in Resources */,
+				2267076715FE987600105A61 /* Icon.png in Resources */,
+				2267077315FE9A6000105A61 /* Icon-57.png in Resources */,
+				2267077515FE9A6600105A61 /* Icon-114.png in Resources */,
+				2267077715FE9A6E00105A61 /* Icon-72.png in Resources */,
+				2267077915FE9A7000105A61 /* Icon-144.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
