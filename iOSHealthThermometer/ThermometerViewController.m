@@ -58,15 +58,6 @@
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
     
-    UIImageView *imageView = [[UIImageView alloc]
-                              initWithImage:[UIImage imageNamed:@"BLE112_eval_kit_web_pic.png"]];
-    [self.view addSubview:imageView];
-    CGRect imageFrame = imageView.frame;
-    imageFrame.origin.x = 0.5*(self.view.bounds.size.width - imageFrame.size.width);
-    imageFrame.origin.y = 0.5*(self.view.bounds.size.height - imageFrame.size.height);
-    imageView.frame = imageFrame;
-    
-
 #ifdef CAMERA_ENABLED
     self.cameraView = [[CameraView alloc] initWithFrame:self.view.bounds];
     self.cameraView.autoresizingMask = UIViewAutoresizingFlexibleWidth + UIViewAutoresizingFlexibleHeight;

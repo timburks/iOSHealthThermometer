@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2267074A15FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */; };
 		2267074D15FE481A00105A61 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2267074C15FE481A00105A61 /* CameraView.m */; };
 		2267074F15FE492A00105A61 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267074E15FE492A00105A61 /* AVFoundation.framework */; };
 		2267075315FE495E00105A61 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267075215FE495E00105A61 /* CoreMedia.framework */; };
@@ -29,7 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BLE112_eval_kit_web_pic.png; sourceTree = "<group>"; };
 		2267074B15FE481A00105A61 /* CameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
 		2267074C15FE481A00105A61 /* CameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraView.m; sourceTree = "<group>"; };
 		2267074E15FE492A00105A61 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -120,7 +118,6 @@
 				2267074C15FE481A00105A61 /* CameraView.m */,
 				2267075615FE4AB400105A61 /* UIImage+Resize.h */,
 				2267075715FE4AB400105A61 /* UIImage+Resize.m */,
-				2267074915FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png */,
 				22A851AB153E964A000B4042 /* ThermometerViewController.h */,
 				22A851AC153E964A000B4042 /* ThermometerViewController.m */,
 				22A85191153E8F3E000B4042 /* Supporting Files */,
@@ -192,7 +189,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A85195153E8F3E000B4042 /* InfoPlist.strings in Resources */,
-				2267074A15FE3D2E00105A61 /* BLE112_eval_kit_web_pic.png in Resources */,
 				2267076715FE987600105A61 /* Icon.png in Resources */,
 				2267077315FE9A6000105A61 /* Icon-57.png in Resources */,
 				2267077515FE9A6600105A61 /* Icon-114.png in Resources */,
