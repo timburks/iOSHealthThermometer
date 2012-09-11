@@ -9,8 +9,9 @@
 #import "ThermometerViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 
-
+#if !TARGET_IPHONE_SIMULATOR
 #define CAMERA_ENABLED
+#endif
 
 #ifdef CAMERA_ENABLED
 #import "CameraView.h"
@@ -131,7 +132,7 @@
 {
     NSLog(@"startScan");
     self.automaticallyReconnect = YES;
-    NSArray *services = [NSArray arrayWithObject:[CBUUID UUIDWithString:@"F5E33626-FBD9-5263-98AA-1E0D2FCE4C65"]]; // nil; // [NSArray arrayWithObject:[CBUUID UUIDWithString:@"1809"]];
+    //NSArray *services = [NSArray arrayWithObject:[CBUUID UUIDWithString:@"1809"]];
     [self.manager scanForPeripheralsWithServices:nil options:nil];
 }
 
